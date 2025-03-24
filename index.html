@@ -2,101 +2,224 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Main Finance Company Stock Market News</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Financial Insights</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
-    /* Basic styling for the page */
+    /* TikTok-inspired Styles */
+    :root {
+      --neon-green: #69F9A4;
+      --electric-pink: #FF006B;
+      --cyber-blue: #00F0FF;
+      --dark-bg: #0F0F0F;
+    }
+
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       margin: 0;
       padding: 0;
-      background: #f2f2f2;
-    }
-    header {
-      background: #333;
+      background: var(--dark-bg);
       color: white;
-      padding: 20px;
-      text-align: center;
+      line-height: 1.6;
     }
-    main {
-      margin: 20px;
+
+    /* Glowing Header */
+    header {
+      background: linear-gradient(135deg, #1A1A1A 0%, #0F0F0F 100%);
+      padding: 1rem 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
     }
+
+    header::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, 
+        var(--neon-green) 0%, 
+        var(--electric-pink) 50%, 
+        var(--cyber-blue) 100%);
+      opacity: 0.1;
+      z-index: 0;
+      animation: rotate 20s linear infinite;
+    }
+
+    header img {
+      height: 40px;
+      margin-right: 15px;
+      filter: drop-shadow(0 0 5px var(--neon-green));
+      position: relative;
+      z-index: 1;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8em;
+      background: linear-gradient(45deg, var(--neon-green), var(--cyber-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Cyber News Cards */
     .news-item {
-      background: white;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      margin: 1.5rem;
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease;
+      position: relative;
     }
+
+    .news-item:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .news-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      padding: 2px;
+      background: linear-gradient(45deg, 
+        var(--neon-green), 
+        var(--cyber-blue), 
+        var(--electric-pink));
+      -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+      mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
     .news-item h2 {
       margin-top: 0;
+      color: var(--neon-green);
+      font-weight: 700;
     }
-    
-    /* Chat widget styles */
+
+    /* Cyber Chat Widget */
     #chatButton {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #0078D7;
-      color: white;
+      bottom: 2rem;
+      right: 2rem;
+      background: linear-gradient(45deg, var(--electric-pink), var(--cyber-blue));
       border: none;
       border-radius: 50%;
-      width: 60px;
-      height: 60px;
+      width: 64px;
+      height: 64px;
       font-size: 24px;
       cursor: pointer;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
     }
+
+    #chatButton:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.6);
+    }
+
     #chatWindow {
       display: none;
       position: fixed;
-      bottom: 90px;
-      right: 20px;
-      width: 300px;
-      height: 400px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background: #fff;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      bottom: 100px;
+      right: 2rem;
+      width: 360px;
+      height: 500px;
+      border-radius: 20px;
+      background: rgba(15, 15, 15, 0.95);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 40px rgba(0, 240, 255, 0.2);
       overflow: hidden;
     }
+
     #closeButton {
       position: absolute;
-      top: 5px;
-      right: 5px;
-      background: none;
+      top: 12px;
+      right: 12px;
+      background: rgba(255, 255, 255, 0.1);
       border: none;
-      font-size: 20px;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      color: var(--electric-pink);
       cursor: pointer;
-      z-index: 1;
+      transition: all 0.3s ease;
     }
+
+    #closeButton:hover {
+      background: rgba(255, 0, 107, 0.2);
+      transform: rotate(90deg);
+    }
+
     #chatWindow iframe {
       width: 100%;
       height: 100%;
       border: none;
+      background: transparent;
+    }
+
+    /* Animations */
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 600px) {
+      .news-item {
+        margin: 1rem;
+        padding: 1rem;
+      }
+
+      #chatWindow {
+        width: 90%;
+        right: 5%;
+        bottom: 80px;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Updated Header with Logo -->
   <header>
-    <h1>Main Finance Company Stock Market News</h1>
+    <img src="logo.png" alt="Company Logo">
+    <h1>Financial Insights</h1>
   </header>
   
   <main>
+    <!-- Cyber News Cards -->
     <div class="news-item">
-      <h2>Finance Company Reports Record Q2 Profits</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Cras luctus, dui ut fermentum malesuada, nunc ante sodales nisi, non cursus arcu tortor ac libero.</p>
+      <h2>In-Depth Analysis: Economic Recovery Trends</h2>
+      <p>Explore the latest expert insights into economic recovery trends shaping global finance. Our analysis dives into key drivers and forecasts for sustainable growth.</p>
     </div>
     <div class="news-item">
-      <h2>Market Update: Stocks Rally Amid Economic Recovery</h2>
-      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.</p>
+      <h2>Market Outlook: Navigating Volatile Financial Markets</h2>
+      <p>Dive into our exclusive report detailing opportunities and challenges in today's volatile financial markets. Learn strategies to optimize your investment portfolio.</p>
     </div>
     <div class="news-item">
-      <h2>New Strategic Investments Announced by Finance Giant</h2>
-      <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+      <h2>Innovative Investment Strategies for the Modern Era</h2>
+      <p>Discover forward-thinking investment approaches and industry insights from financial experts. Stay ahead with our comprehensive guides and market forecasts.</p>
     </div>
   </main>
   
-  <!-- Chat widget code -->
+  <!-- Cyber Chat Widget -->
   <button id="chatButton">&#128172;</button>
   <div id="chatWindow">
     <button id="closeButton">&times;</button>
@@ -104,7 +227,7 @@
   </div>
   
   <script>
-    // Toggle chat window and button
+    // Toggle chat widget visibility
     const chatButton = document.getElementById('chatButton');
     const chatWindow = document.getElementById('chatWindow');
     const closeButton = document.getElementById('closeButton');
@@ -116,7 +239,18 @@
 
     closeButton.addEventListener('click', function() {
       chatWindow.style.display = 'none';
-      chatButton.style.display = 'block';
+      chatButton.style.display = 'flex';
+    });
+
+    // Add some TikTok-style animations to news items
+    document.querySelectorAll('.news-item').forEach(item => {
+      item.addEventListener('mousemove', (e) => {
+        const rect = item.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        item.style.setProperty('--x', `${x}px`);
+        item.style.setProperty('--y', `${y}px`);
+      });
     });
   </script>
 </body>
