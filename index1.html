@@ -1,148 +1,369 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bubble Chat Style</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Financial Insights</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
-    /* Basic Reset */
-    *, *::before, *::after {
-      box-sizing: border-box;
+    /* TikTok & Cyber-inspired Styles */
+    :root {
+      --neon-green: #69F9A4;
+      --electric-pink: #FF006B;
+      --cyber-blue: #00F0FF;
+      --dark-bg: #0F0F0F;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       margin: 0;
       padding: 0;
+      background: var(--dark-bg);
+      color: white;
+      line-height: 1.6;
     }
 
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    /* Container to center the content and make it responsive */
-    .chat-page {
-      flex: 1;
-      max-width: 600px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      background-color: #fff;
+    /* Glowing Header */
+    header {
+      background: linear-gradient(135deg, #1A1A1A 0%, #0F0F0F 100%);
+      padding: 1rem 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
       overflow: hidden;
     }
+    header::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        45deg, 
+        var(--neon-green) 0%, 
+        var(--electric-pink) 50%, 
+        var(--cyber-blue) 100%
+      );
+      opacity: 0.1;
+      z-index: 0;
+      animation: rotate 20s linear infinite;
+    }
+    header img {
+      height: 40px;
+      margin-right: 15px;
+      filter: drop-shadow(0 0 5px var(--neon-green));
+      position: relative;
+      z-index: 1;
+    }
+    header h1 {
+      display: inline-block;
+      margin: 0;
+      font-size: 1.8em;
+      background: linear-gradient(45deg, var(--neon-green), var(--cyber-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+      z-index: 1;
+      vertical-align: middle;
+    }
 
-    /* Optional header (logo or user info) */
-    .chat-header {
+    /* Main feed container (TikTok-style vertical feed) */
+    main {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* "News" items as a vertical feed */
+    .feed-card {
+      background: rgba(255, 255, 255, 0.05);
+      margin: 1.5rem 0;
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+    .feed-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .feed-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      padding: 2px;
+      background: linear-gradient(
+        45deg, 
+        var(--neon-green), 
+        var(--cyber-blue), 
+        var(--electric-pink)
+      );
+      -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+      mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+    .feed-card h2 {
+      margin-top: 0;
+      color: var(--neon-green);
+      font-weight: 700;
+    }
+
+    /* Bubble Chat Demo (outside the iframe) */
+    .bubble-chat-container {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      margin: 1.5rem 0;
       padding: 1rem;
-      border-bottom: 1px solid #ddd;
-      text-align: center;
-      background-color: #ffffff;
+      position: relative;
+      overflow: hidden;
     }
-    .chat-header h1 {
-      font-size: 1.25rem;
-      font-weight: 600;
+    .bubble-chat-container::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      padding: 2px;
+      background: linear-gradient(
+        45deg, 
+        var(--neon-green), 
+        var(--cyber-blue), 
+        var(--electric-pink)
+      );
+      -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+      mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
     }
-
-    /* Main content area for chat or social content feed */
-    .chat-content {
-      flex: 1;
+    .bubble-chat {
       display: flex;
       flex-direction: column;
-      padding: 1rem;
-      overflow-y: auto; /* Allows scrolling if content gets too long */
+      gap: 1rem;
+      max-height: 300px;
+      overflow-y: auto;
     }
-
-    /* Example chat bubbles (you can remove these if the iframe is handling chat itself) */
     .bubble {
-      max-width: 75%;
-      margin-bottom: 1rem;
+      max-width: 70%;
       padding: 0.75rem 1rem;
       border-radius: 1.5rem;
       line-height: 1.4;
       word-wrap: break-word;
     }
     .bubble.bot {
-      background-color: #e4e6eb;
-      color: #000;
+      background-color: #1f1f1f;
+      color: #fff;
       align-self: flex-start;
-      border-top-left-radius: 0.5rem;
+      border-bottom-left-radius: 0.5rem;
     }
     .bubble.user {
-      background-color: #007bff;
+      background-color: #FF006B;
       color: #fff;
       align-self: flex-end;
-      border-top-right-radius: 0.5rem;
+      border-bottom-right-radius: 0.5rem;
     }
 
-    /* The iframe will display your embedded chat (Bot Framework, etc.) */
-    .chat-iframe {
-      width: 100%;
-      min-height: 400px;
+    /* Chat Widget Button (Floats over the page) */
+    #chatButton {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: linear-gradient(45deg, var(--electric-pink), var(--cyber-blue));
       border: none;
-      border-radius: 6px;
-    }
-
-    /* Footer for social interactions or nav (TikTok-like bottom bar) */
-    .chat-footer {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      border-top: 1px solid #ddd;
-      background-color: #fff;
-      padding: 0.75rem;
-    }
-    .chat-footer button {
-      border: none;
-      background: none;
-      font-size: 1.1rem;
+      border-radius: 50%;
+      width: 64px;
+      height: 64px;
+      font-size: 24px;
       cursor: pointer;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      z-index: 99; /* Ensures chat button is on top */
+    }
+    #chatButton:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.6);
     }
 
-    /* Mobile-friendly adjustments (example) */
-    @media only screen and (max-width: 600px) {
-      .chat-page {
-        border: none;
-        border-radius: 0;
+    /* Pop-up Chat Window with iframe inside */
+    #chatWindow {
+      display: none;
+      position: fixed;
+      bottom: 100px;
+      right: 2rem;
+      width: 360px;
+      height: 500px;
+      border-radius: 20px;
+      background: rgba(15, 15, 15, 0.95);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 40px rgba(0, 240, 255, 0.2);
+      overflow: hidden;
+      z-index: 100; /* Above the chat button */
+    }
+    #closeButton {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      color: var(--electric-pink);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    #closeButton:hover {
+      background: rgba(255, 0, 107, 0.2);
+      transform: rotate(90deg);
+    }
+    #chatWindow iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: transparent;
+    }
+
+    /* Footer Styling */
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: var(--dark-bg);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 2rem;
+      font-size: 0.9em;
+    }
+    footer a {
+      color: var(--electric-pink);
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Animations */
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 600px) {
+      main {
+        padding: 0 0.5rem;
       }
-      .chat-header h1 {
-        font-size: 1rem;
+      .feed-card {
+        margin: 1rem 0;
+        padding: 1rem;
+      }
+      #chatWindow {
+        width: 90%;
+        right: 5%;
+        bottom: 80px;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Header with Logo -->
+  <header>
+    <img src="https://agent-finance-demo.netlify.app/_logo.svg" alt="Financial Insights Logo">
+    <h1>Financial Insights</h1>
+  </header>
+  
+  <main>
+    <!-- TikTok-style vertical feed -->
+    <div class="feed-card">
+      <h2>In-Depth Analysis: Economic Recovery Trends</h2>
+      <p>Explore the latest expert insights into economic recovery trends shaping global finance. Our analysis dives into key drivers and forecasts for sustainable growth.</p>
+    </div>
+    <div class="feed-card">
+      <h2>Market Outlook: Navigating Volatile Financial Markets</h2>
+      <p>Dive into our exclusive report detailing opportunities and challenges in today's volatile financial markets. Learn strategies to optimize your investment portfolio.</p>
+    </div>
+    <div class="feed-card">
+      <h2>Innovative Investment Strategies for the Modern Era</h2>
+      <p>Discover forward-thinking investment approaches and industry insights from financial experts. Stay ahead with our comprehensive guides and market forecasts.</p>
+    </div>
 
-  <div class="chat-page">
-    
-    <!-- Header (optional) -->
-    <div class="chat-header">
-      <h1>My Bubble Chat</h1>
+    <!-- Example bubble chat container (static sample) -->
+    <!-- Remove or replace if your embedded chat fully handles these messages -->
+    <div class="bubble-chat-container">
+      <div class="bubble-chat">
+        <div class="bubble bot">Hello! I’m your Financial Insights bot. How can I assist?</div>
+        <div class="bubble user">Could you show me the latest news on crypto markets?</div>
+        <div class="bubble bot">Sure! Here are the top crypto updates for today...</div>
+      </div>
     </div>
-    
-    <!-- Main content area -->
-    <div class="chat-content">
-      <!-- Example static bubbles (remove if your iframe is providing its own chat bubbles) -->
-      <div class="bubble bot">Hello! I’m the bot. How can I help you today?</div>
-      <div class="bubble user">Hi! Show me the new bubble chat style, please.</div>
-      <div class="bubble bot">Sure thing! Below is our embedded chat frame.</div>
-      
-      <!-- Your embedded chat frame -->
-      <iframe
-        class="chat-iframe"
-        src="https://copilotstudio.microsoft.com/environments/Default-6771d87e-a272-4a75-a7aa-48cd60ce9025/bots/cr41f_agent/webchat?__version__=2">
-      </iframe>
-    </div>
-    
-    <!-- Footer icons/links (like a social feed) -->
-    <div class="chat-footer">
-      <button>Home</button>
-      <button>Discover</button>
-      <button>Inbox</button>
-      <button>Profile</button>
-    </div>
+  </main>
+  
+  <!-- Footer with SSO Configuration Link -->
+  <footer>
+    <p>
+      Learn how to configure SSO with Microsoft Copilot Studio:
+      <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/configure-sso?tabs=webApp" 
+         target="_blank" 
+         rel="noopener noreferrer">
+        SSO Configuration Guide
+      </a>
+    </p>
+  </footer>
+  
+  <!-- Floating Chat Widget -->
+  <button id="chatButton">&#128172;</button>
+  <div id="chatWindow">
+    <button id="closeButton">&times;</button>
+    <!-- External iframe Chat (not directly styled by this page’s CSS) -->
+    <iframe
+      src="https://copilotstudio.microsoft.com/environments/Default-6771d87e-a272-4a75-a7aa-48cd60ce9025/bots/cr41f_agent/webchat?__version__=2">
+    </iframe>
   </div>
+  
+  <script>
+    // Toggle chat widget visibility
+    const chatButton = document.getElementById('chatButton');
+    const chatWindow = document.getElementById('chatWindow');
+    const closeButton = document.getElementById('closeButton');
 
+    chatButton.addEventListener('click', function() {
+      chatWindow.style.display = 'block';
+      chatButton.style.display = 'none';
+    });
+
+    closeButton.addEventListener('click', function() {
+      chatWindow.style.display = 'none';
+      chatButton.style.display = 'flex';
+    });
+
+    // Simple "parallax-like" effect on feed cards
+    document.querySelectorAll('.feed-card').forEach(item => {
+      item.addEventListener('mousemove', (e) => {
+        const rect = item.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        item.style.setProperty('--x', `${x}px`);
+        item.style.setProperty('--y', `${y}px`);
+      });
+    });
+  </script>
 </body>
 </html>
