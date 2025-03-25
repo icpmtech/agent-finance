@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bubble Chat Style</title>
+  <style>
+    /* Basic Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Container to center the content and make it responsive */
+    .chat-page {
+      flex: 1;
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background-color: #fff;
+      overflow: hidden;
+    }
+
+    /* Optional header (logo or user info) */
+    .chat-header {
+      padding: 1rem;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+      background-color: #ffffff;
+    }
+    .chat-header h1 {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    /* Main content area for chat or social content feed */
+    .chat-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      overflow-y: auto; /* Allows scrolling if content gets too long */
+    }
+
+    /* Example chat bubbles (you can remove these if the iframe is handling chat itself) */
+    .bubble {
+      max-width: 75%;
+      margin-bottom: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 1.5rem;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+    .bubble.bot {
+      background-color: #e4e6eb;
+      color: #000;
+      align-self: flex-start;
+      border-top-left-radius: 0.5rem;
+    }
+    .bubble.user {
+      background-color: #007bff;
+      color: #fff;
+      align-self: flex-end;
+      border-top-right-radius: 0.5rem;
+    }
+
+    /* The iframe will display your embedded chat (Bot Framework, etc.) */
+    .chat-iframe {
+      width: 100%;
+      min-height: 400px;
+      border: none;
+      border-radius: 6px;
+    }
+
+    /* Footer for social interactions or nav (TikTok-like bottom bar) */
+    .chat-footer {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border-top: 1px solid #ddd;
+      background-color: #fff;
+      padding: 0.75rem;
+    }
+    .chat-footer button {
+      border: none;
+      background: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    /* Mobile-friendly adjustments (example) */
+    @media only screen and (max-width: 600px) {
+      .chat-page {
+        border: none;
+        border-radius: 0;
+      }
+      .chat-header h1 {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chat-page">
+    
+    <!-- Header (optional) -->
+    <div class="chat-header">
+      <h1>My Bubble Chat</h1>
+    </div>
+    
+    <!-- Main content area -->
+    <div class="chat-content">
+      <!-- Example static bubbles (remove if your iframe is providing its own chat bubbles) -->
+      <div class="bubble bot">Hello! I’m the bot. How can I help you today?</div>
+      <div class="bubble user">Hi! Show me the new bubble chat style, please.</div>
+      <div class="bubble bot">Sure thing! Below is our embedded chat frame.</div>
+      
+      <!-- Your embedded chat frame -->
+      <iframe
+        class="chat-iframe"
+        src="https://copilotstudio.microsoft.com/environments/Default-6771d87e-a272-4a75-a7aa-48cd60ce9025/bots/cr41f_agent/webchat?__version__=2">
+      </iframe>
+    </div>
+    
+    <!-- Footer icons/links (like a social feed) -->
+    <div class="chat-footer">
+      <button>Home</button>
+      <button>Discover</button>
+      <button>Inbox</button>
+      <button>Profile</button>
+    </div>
+  </div>
+
+</body>
+</html>
